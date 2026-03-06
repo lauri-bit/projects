@@ -32,3 +32,10 @@ def dichotomie(nb):
     racine=round(bas_intervalle,PRECISION)
     return racine
 
+def chiffre_par_chiffre(nb):
+
+    if len(nb) == 3:
+        for i in range(100,1000,100):
+            if i**2 <= nb >= (i+100)**2:
+                return i
+
