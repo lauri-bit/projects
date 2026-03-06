@@ -1,5 +1,5 @@
 
-PRECISION = 8 #nombres de chiffre après la virgule pour toute fonctions
+PRECISION = 12 #nombres de chiffre après la virgule pour toute fonctions
 
 def dichotomie(nb):
     bas_intervalle=0
@@ -32,10 +32,29 @@ def dichotomie(nb):
     racine=round(bas_intervalle,PRECISION)
     return racine
 
+print(dichotomie(8))
+
 def chiffre_par_chiffre(nb):
 
-    if len(nb) == 3:
-        for i in range(100,1000,100):
-            if i**2 <= nb >= (i+100)**2:
-                return i
+    unité=1
+    while unité**2 < nb:
+        unité +=1
+    racine = unité - 1
 
+    for i in range(PRECISION + 1):
+
+        for j in range(10):
+            if j == 0:
+                continue
+
+            décimal= j * (10 ** -(i + 1))
+            racine_test= racine + décimal
+
+            if racine_test ** 2 > nb:
+                if j != 1:
+                   racine += (j - 1) * (10 ** -(i + 1))
+                   break
+    racine=round(racine,PRECISION)
+    return racine
+
+print(chiffre_par_chiffre(8))
