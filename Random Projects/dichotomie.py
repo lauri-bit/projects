@@ -51,9 +51,15 @@ def chiffre_par_chiffre(nb):
     Cette fonction trouve la racine carrée en regardant chiffre par chiffre, décimal par décimal pour finalement trouver la racine à la précision demandée.
     """
     #On commence par déterminer quel chiffre à la 2 se rapproche du nombre dans le paramètre nb
-    unité=1
+    unité=0
     while unité**2 < nb:
         unité +=1
+
+    if unité ** 2 == nb:
+        return float(unité)
+
+    elif unité == 0:
+        return float(0)
     #Lorsqu'on trouve un chiffre à la 2 qui dépasse nb, on trouve maintenant la première unité de notre racine carrée, qui serait le chiffre juste avant. On passe maintenant aux décimales.
     racine = unité - 1
 
@@ -61,7 +67,7 @@ def chiffre_par_chiffre(nb):
     for i in range(PRECISION + 1):
 
         #Dans ce deuxième for loop, on vérifie la valeur de chaque décimal en regardant sa valeur possible entre 0 et 10 (non inclusivement).
-        for j in range(1,10):
+        for j in range(11):
 
             #Nous calculons la valeur décimale de j en fonction de "i" (la valeur i va controller la position de j dans les décimales).
             décimal= j * (10 ** -(i + 1))
@@ -74,15 +80,13 @@ def chiffre_par_chiffre(nb):
             if racine_temporaire ** 2 > nb:
                 #Lorsque nous trouvons une racine temporaire qui, à la 2, est plus grande que "nb", nous savons que la valeur cherchée pour ce point décimal i, est entre j et j - 1.
                 #Donc, nous reculerons à j-1 et nous enregistrerons cette valeur décimale dans notre racine et nous irons chercher plus de précision dans le prochain la prochaine décimal i.
-                if j != 1:
-                   racine += (j - 1) * (10 ** -(i + 1))
-                   #Après avoir ajouté la valeur décimale, nous sortons du for loop j, pour continue dans le for loop i. Nous continuons commme ça,jusqu'à temps qu'on se trouve à i = PRÉCISION.
-                   break
+                racine += (j - 1) * (10 ** -(i + 1))
+                #Après avoir ajouté la valeur décimale, nous sortons du for loop j, pour continue dans le for loop i. Nous continuons commme ça,jusqu'à temps qu'on se trouve à i = PRÉCISION.
+                break
 
     # On arrondit notre réponse à la précision définie en haut et on retourne la valeur trouvée de racine.
     racine = round(racine,PRECISION)
     return racine
 
+print(chiffre_par_chiffre(0.5))
 
-print(dichotomie(8))
-print(chiffre_par_chiffre(8))
