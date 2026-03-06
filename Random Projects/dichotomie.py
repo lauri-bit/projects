@@ -43,9 +43,7 @@ def chiffre_par_chiffre(nb):
 
     for i in range(PRECISION + 1):
 
-        for j in range(10):
-            if j == 0:
-                continue
+        for j in range(1,10):
 
             décimal= j * (10 ** -(i + 1))
             racine_test= racine + décimal
